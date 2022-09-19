@@ -48,14 +48,13 @@ const vscode = __webpack_require__(1);
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
-    let compareTabs = vscode.commands.registerCommand('compare.compareTabs', async () => {
-        vscode.window.showInformationMessage('Hello World from compare!');
-        let what = await vscode.window.showInputBox({ placeHolder: 'cow say?' });
-    });
-    let backwards = vscode.commands.registerCommand('compare.backwards', async () => {
+    context.globalState.get("accessor");
+    let compareTabs = vscode.commands.registerCommand('compare.compareTabs', async (eventParams) => {
+        var uriCurrent = vscode.window.activeTextEditor?.document.uri;
+        var uriSelected = eventParams;
+        vscode.commands.executeCommand('vscode.diff', uriCurrent, uriSelected, 'diff');
     });
     context.subscriptions.push(compareTabs);
-    context.subscriptions.push(backwards);
 }
 exports.activate = activate;
 // this method is called when your extension is deactivated
