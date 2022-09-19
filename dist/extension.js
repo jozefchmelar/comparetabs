@@ -52,7 +52,7 @@ function activate(context) {
     let compareTabs = vscode.commands.registerCommand('compare.compareTabs', async (eventParams) => {
         var uriCurrent = vscode.window.activeTextEditor?.document.uri;
         var uriSelected = eventParams;
-        vscode.commands.executeCommand('vscode.diff', uriCurrent, uriSelected, 'diff');
+        vscode.commands.executeCommand('vscode.diff', uriCurrent, uriSelected, 'name of the tab');
     });
     context.subscriptions.push(compareTabs);
 }
