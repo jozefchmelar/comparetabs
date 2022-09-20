@@ -1,14 +1,22 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ([
-/* 0 */,
-/* 1 */
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 1:
 /***/ ((module) => {
 
 module.exports = require("vscode");
 
+/***/ }),
+
+/***/ 7:
+/***/ ((module) => {
+
+module.exports = require("path");
+
 /***/ })
-/******/ 	]);
+
+/******/ 	});
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
@@ -45,19 +53,30 @@ exports.deactivate = exports.activate = void 0;
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = __webpack_require__(1);
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const path = __webpack_require__(7);
+let commands = vscode.commands;
+let activeEditor = vscode.window.activeTextEditor;
 function activate(context) {
-    context.globalState.get("accessor");
-    let compareTabs = vscode.commands.registerCommand('compare.compareTabs', async (eventParams) => {
-        var uriCurrent = vscode.window.activeTextEditor?.document.uri;
-        var uriSelected = eventParams;
-        vscode.commands.executeCommand('vscode.diff', uriCurrent, uriSelected, 'name of the tab');
-    });
-    context.subscriptions.push(compareTabs);
+    context.subscriptions.push(commands.registerCommand('compare.compareTabs', diffCurrentWithSelected));
+    context.subscriptions.push(commands.registerCommand('compare.swapComparedTabs', swapComparedTabs));
 }
 exports.activate = activate;
-// this method is called when your extension is deactivated
+function diffCurrentWithSelected(eventParams) {
+    let uriCurrent = activeEditor?.document.uri;
+    let fileNameCurrent = activeEditor.document.fileName;
+    let titleCurrent = title(fileNameCurrent);
+    let uriSelected = eventParams;
+    let fileNameSelected = eventParams._fsPath;
+    let titleSelected = title(fileNameSelected);
+    commands.executeCommand('vscode.diff', uriCurrent, uriSelected, titleCurrent + '↔' + titleSelected);
+}
+function swapComparedTabs(eventParams) {
+    //todo	
+}
+function title(fileName) {
+    let splitted = fileName.split(path.sep);
+    return splitted[splitted.length - 1];
+}
 function deactivate() { }
 exports.deactivate = deactivate;
 
