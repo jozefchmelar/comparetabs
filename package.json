@@ -1,20 +1,24 @@
 {
   "name": "compare",
-  "displayName": "compare",
-  "description": "See diff of two open tabs, even if they're not saved",
-  "version": "0.0.1",
+  "displayName": "Compare text",
+  "description": "See diff of two tabs, even if they're not saved",
+  "repository": {
+    "url": "https://github.com/jozefchmelar/comparetabs"
+  },
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.71.0"
   },
   "author": {
     "name": "Jozef Chmelar, Gokce Aksu, Aleksei Gruntov"
   },
-  "publisher": "TO-DO",
+  "publisher": "JozefChmelar",
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onCommand:compare.compareTabs"
+    "onCommand:compare.compareTabs",
+    "onCommand:compare.swapComparedTabs"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -22,6 +26,10 @@
       {
         "command": "compare.compareTabs",
         "title": "Compare with current"
+      },
+      {
+        "command": "compare.swapComparedTabs",
+        "title": "Swap tabs"
       }
     ],
     "menus" : {
@@ -29,6 +37,18 @@
         {
           "command": "compare.compareTabs",
           "group": "1_diff"
+        },
+        {
+          "command": "compare.swapComparedTabs",
+          "group": "1_diff",
+          "when": "activeEditor == workbench.editors.textDiffEditor"
+        }
+      ],
+        "editor":[
+        {
+          "command": "compare.swapComparedTabs",
+          "group": "1_diff",
+          "when": "isInDiffEditor"
         }
       ]
     }
