@@ -1,17 +1,35 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const path = require('path')
+
+let commands = vscode.commands;
+let activeEditor = vscode.window.activeTextEditor;
+
 export function activate(context: vscode.ExtensionContext) {
-	context.globalState.get("accessor");
- 	let compareTabs = vscode.commands.registerCommand(  'compare.compareTabs',  async (eventParams) => {
-		var uriCurrent = vscode.window.activeTextEditor?.document.uri;
-		var uriSelected = eventParams
-        vscode.commands.executeCommand('vscode.diff', uriCurrent, uriSelected , 'name of the tab');
-	});
-	context.subscriptions.push(compareTabs);
+	context.subscriptions.push(commands.registerCommand('compare.compareTabs',  diffCurrentWithSelected));
+	context.subscriptions.push(commands.registerCommand('compare.swapComparedTabs',  swapComparedTabs));
 }
 
-// this method is called when your extension is deactivated
+function diffCurrentWithSelected(eventParams : any) {
+	let uriCurrent = activeEditor?.document.uri;
+	let fileNameCurrent = activeEditor!.document.fileName ;
+	let titleCurrent= title(fileNameCurrent);
+
+	let uriSelected = eventParams;
+	let fileNameSelected = eventParams._fsPath;
+	let titleSelected = title(fileNameSelected);
+
+	commands.executeCommand('vscode.diff', uriCurrent, uriSelected , titleCurrent + '↔' + titleSelected );
+}
+
+function swapComparedTabs(eventParams : any) {
+//todo	
+}
+
+function title(fileName:String) {
+	let splitted = fileName.split(path.sep);
+	return splitted[splitted.length-1];
+}
+
 export function deactivate() {}

@@ -1,11 +1,15 @@
 {
   "name": "compare",
   "displayName": "compare",
-  "description": "See diff of two open tabs, even if they're not saved ",
+  "description": "See diff of two open tabs, even if they're not saved",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.71.0"
   },
+  "author": {
+    "name": "Jozef Chmelar, Gokce Aksu, Aleksei Gruntov"
+  },
+  "publisher": "TO-DO",
   "categories": [
     "Other"
   ],
@@ -17,14 +21,14 @@
     "commands": [
       {
         "command": "compare.compareTabs",
-        "title": "Compare current with selected"
+        "title": "Compare with current"
       }
     ],
     "menus" : {
       "editor/title/context": [
         {
           "command": "compare.compareTabs",
-          "group": "navigation"
+          "group": "1_diff"
         }
       ]
     }
