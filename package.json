@@ -1,7 +1,9 @@
 {
   "name": "compare",
-  "displayName": "Compare text",
-  "description": "See diff of two tabs, even if they're not saved",
+  "displayName": "Diff tabs",
+  "description": "See diff of two tabs, even if they're not saved. And swap the diff view.",
+  "icon": "images/logo.png",
+  "license": "MIT",
   "repository": {
     "url": "https://github.com/jozefchmelar/comparetabs"
   },
@@ -29,10 +31,10 @@
       },
       {
         "command": "compare.swapComparedTabs",
-        "title": "Swap tabs"
+        "title": "Swap diff tabs"
       }
     ],
-    "menus" : {
+    "menus": {
       "editor/title/context": [
         {
           "command": "compare.compareTabs",
@@ -44,7 +46,7 @@
           "when": "activeEditor == workbench.editors.textDiffEditor"
         }
       ],
-        "editor":[
+      "editor": [
         {
           "command": "compare.swapComparedTabs",
           "group": "1_diff",
@@ -65,19 +67,22 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.71.0",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.71.0",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
+    "@vscode/test-electron": "^2.1.5",
     "eslint": "^8.20.0",
     "glob": "^8.0.3",
     "mocha": "^10.0.0",
-    "typescript": "^4.7.4",
     "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "@vscode/test-electron": "^2.1.5"
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "mit-license": "^1.0.0"
   }
 }

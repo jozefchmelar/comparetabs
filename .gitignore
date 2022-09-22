@@ -517,3 +517,5 @@ MigrationBackup/
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
 dist/extension.js
+compare-0.0.2.vsix
+package-lock.json
